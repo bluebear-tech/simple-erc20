@@ -2,7 +2,7 @@
   "name": "simple-erc20",
   "version": "1.0.0",
   "description": "A library to help with integration with ERC20 Contracts",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel source --out-dir dist",
