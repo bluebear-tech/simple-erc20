@@ -49,4 +49,4 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
 
 };
 
-export default SimpleERC20;
+module.exports = SimpleERC20;
