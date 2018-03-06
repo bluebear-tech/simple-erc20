@@ -10,6 +10,13 @@ Usage:
   const token = new SimpleERC20('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2');
   token.name().then(console.log);
   //Should print Wrapped Ether
+  
+  const asyncFunction = async () => {
+    console.log(await token.symbol())
+  };
+  
+  asyncFunction();
+  //Should print WETH
 ```
 
 The SimpleERC20 function can receive three parameters. 
