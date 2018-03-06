@@ -13,7 +13,7 @@ const infuraEndpoints = {
 }
 
 const initWeb3 = (network, web3Param) => {
-  if (typeof web3Param !== null) {
+  if (web3Param !== null) {
     return new Web3(web3Param.currentProvider);
   } else if (typeof web3 !== 'undefined') {
     return new Web3(web3.currentProvider);
