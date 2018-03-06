@@ -22,7 +22,7 @@ const initWeb3 = (network, web3Param) => {
   }
 };
 
-const SimpleERC20 = (address, network, web3Param = null) => {
+const SimpleERC20 = (address, network = 1, web3Param = null) => {
   const w3 = initWeb3(network, web3Param);
   if (typeof address === 'undefined') throw new Error('SimpleERC20: Address undefined');
   if (!w3.utils.isAddress(address)) throw new Error(`SimpleERC20: Invalid address: ${address}`);
