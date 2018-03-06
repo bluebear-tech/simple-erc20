@@ -10,7 +10,7 @@ const infuraEndpoints = {
   'rinkeby': "https://rinkeby.infura.io",
   42: "https://kovan.infura.io",
   'kovan': "https://kovan.infura.io",
-}
+};
 
 const initWeb3 = (network, web3Param) => {
   if (web3Param !== null) {
@@ -24,6 +24,8 @@ const initWeb3 = (network, web3Param) => {
 
 const SimpleERC20 = (address, network, web3Param = null) => {
   const w3 = initWeb3(network, web3Param);
+  if (typeof address === 'undefined') throw new Error('SimpleERC20: Address undefined');
+  if (!w3.utils.isAddress(address)) throw new Error(`SimpleERC20: Invalid address: ${address}`);
   const contract = new w3.eth.Contract(abi, address);
   const methods = contract.methods;
 
