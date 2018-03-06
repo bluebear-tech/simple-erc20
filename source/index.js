@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import * as abi from './abi.json';
+const abi = require('../lib/abi.json');
 
 const infuraEndpoints = {
   1: "https://mainnet.infura.io",
