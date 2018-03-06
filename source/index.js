@@ -36,8 +36,7 @@ const SimpleERC20 = (address, network, web3Param = null) => {
     totalSupply: () => methods.totalSupply().call(),
     decimals: () => methods.decimals().call(),
     balanceOf: (owner) => methods.balanceOf(owner).call(),
-    allowance: (owner, spender) => methods.allowance(owner, spender).call(),
-    name: () => methods.name().call()
+    allowance: (owner, spender) => methods.allowance(owner, spender).call()
     //TODO: Transactions to possibly implement
     //approve  (spender,value)
     //transferFrom (from, to, value)
