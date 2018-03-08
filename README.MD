@@ -21,7 +21,7 @@ Usage:
 
 The SimpleERC20 function can receive three parameters. 
 1. A ERC20 token address
-1. The network name or id Ethereum network (optional)
+1. The network name or id Ethereum network (optional, defaults to main)
 1. An existing web3 object to wrap (optional)
 
 The resulting object currently provides data from the basic erc20 public function calls.
