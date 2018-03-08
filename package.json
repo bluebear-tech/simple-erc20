@@ -13,14 +13,12 @@
   "license": "ISC",
   "babel": {
     "presets": [
-      "env"
+      "es2015"
     ]
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
-  },
   "dependencies": {
-    "web3": "^1.0.0-beta.30"
+    "web3": "^1.0.0-beta.30",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
