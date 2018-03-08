@@ -12,6 +12,17 @@ const infuraEndpoints = {
   'kovan': "https://kovan.infura.io",
 };
 
+const networks = {
+  'main': 1,
+  '1': 1,
+  'ropsten': 3,
+  '3': 3,
+  'rinkeby': 4,
+  '4': 4,
+  'kovan': 42,
+  '42': 42
+};
+
 const initWeb3 = (network, web3Param) => {
   if (web3Param !== null) {
     return new Web3(web3Param.currentProvider);
@@ -28,6 +39,14 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
   if (!w3.utils.isAddress(address)) throw new Error(`SimpleERC20: Invalid address: ${address}`);
   const contract = new w3.eth.Contract(abi, address);
   const methods = contract.methods;
+
+  w3.eth.net.getId().then((actualNetwork) => {
+    if(network !== actualNetwork) {
+      const networkId = networks[network];
+      if(networkId !== actualNetwork)
+        console.warn(`The current network is ${actualNetwork}, ${network} was specified`);
+    }
+  });
 
   return {
     contract,
