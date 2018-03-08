@@ -8,7 +8,7 @@
     "build": "babel source --out-dir dist",
     "prepublish": "npm run build"
   },
-  "author": "",
+  "author": "Blue Bear Digital (Nick)",
   "license": "ISC",
   "babel": {
     "presets": [
