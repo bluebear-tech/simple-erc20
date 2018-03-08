@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "A library to help with integration with ERC20 Contracts",
   "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluebear-tech/simple-erc20"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel source --out-dir dist",
     "prepublish": "npm run build"
   },
-  "author": "Blue Bear Digital (Nick)",
+  "author": "Nick @ Blue Bear Digital",
   "license": "ISC",
   "babel": {
     "presets": [
