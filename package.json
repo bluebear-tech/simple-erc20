@@ -1,6 +1,6 @@
 {
   "name": "simple-erc20",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library to help with integration with ERC20 Contracts",
   "main": "./dist/index.js",
   "repository": {
