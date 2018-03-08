@@ -1,6 +1,6 @@
 Installation:
 
-`npm i https://github.com/bluebear-tech/simple-erc20`
+`npm i simple-erc20`
 
 Usage: 
 
