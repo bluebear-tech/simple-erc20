@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+
 const abi = require('../lib/abi.json');
 
 const infuraEndpoints = {
@@ -41,9 +42,9 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
   const methods = contract.methods;
 
   w3.eth.net.getId().then((actualNetwork) => {
-    if(network !== actualNetwork) {
+    if (network !== actualNetwork) {
       const networkId = networks[network];
-      if(networkId !== actualNetwork)
+      if (networkId !== actualNetwork)
         console.warn(`The current network is ${actualNetwork}, ${network} was specified`);
     }
   });
@@ -59,17 +60,20 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
     decimals: () => methods.decimals().call(),
     balanceOf: (owner) => methods.balanceOf(owner).call(),
     allowance: (owner, spender) => methods.allowance(owner, spender).call(),
-    approve: async (spender, value, from = await getCoinbase()) => {
+    approve: async (spender, value, from = null) => {
+      if (from === null) from = await getCoinbase();
       const tx = methods.approve(spender, value);
-      tx.send({ from, gas: await tx.estimateGas() });
+      tx.send({from, gas: await tx.estimateGas()});
     },
-    transferFrom: async (fromAddress, to, value, from = await getCoinbase()) => {
+    transferFrom: async (fromAddress, to, value, from = null) => {
+      if (from === null) from = await getCoinbase();
       const tx = methods.transferFrom(fromAddress, to, value);
-      tx.send({ from, gas: await tx.estimateGas() });
+      tx.send({from, gas: await tx.estimateGas()});
     },
-    transfer: async (to, value, from = await getCoinbase()) => {
+    transfer: async (to, value, from = null) => {
+      if (from === null) from = await getCoinbase();
       const tx = methods.transfer(to, value);
-      tx.send({ from, gas: await tx.estimateGas() });
+      tx.send({from, gas: await tx.estimateGas()});
     }
   };
   //TODO: Events to expose actions for.
