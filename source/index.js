@@ -48,37 +48,33 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
     }
   });
 
-  const erc20Obj = {
+  const getCoinbase = async () => w3.eth.getCoinbase().catch(() => console.error('SimpleERC20: web3 coinbase is undefined. Omitting transactions.'));
+
+
+  return erc20Obj = {
     contract,
     name: () => methods.name().call(),
     symbol: () => methods.symbol().call(),
     totalSupply: () => methods.totalSupply().call(),
     decimals: () => methods.decimals().call(),
     balanceOf: (owner) => methods.balanceOf(owner).call(),
-    allowance: (owner, spender) => methods.allowance(owner, spender).call()
-  };
-
-  w3.eth.getCoinbase().then((coinbase) => {
-    //TODO: review the timing possiblities with this.
-    erc20Obj.approve = async (spender, value) => {
+    allowance: (owner, spender) => methods.allowance(owner, spender).call(),
+    approve: async (spender, value, from = await getCoinbase()) => {
       const tx = methods.approve(spender, value);
-      tx.send({ from: coinbase, gas: await tx.estimateGas() })
-    };
-    erc20Obj.transferFrom = async (from, to, value) => {
-      const tx = methods.transferFrom(from, to, value);
-      tx.send({ from: coinbase, gas: await tx.estimateGas() })
-    };
-    erc20Obj.transfer = async (to, value) => {
+      tx.send({ from, gas: await tx.estimateGas() });
+    },
+    transferFrom: async (fromAddress, to, value, from = await getCoinbase()) => {
+      const tx = methods.transferFrom(fromAddress, to, value);
+      tx.send({ from, gas: await tx.estimateGas() });
+    },
+    transfer: async (to, value, from = await getCoinbase()) => {
       const tx = methods.transfer(to, value);
-      tx.send({ from: coinbase, gas: await tx.estimateGas() })
-    };
-  }).catch(() => console.warn('SimpleERC20: web3 coinbase is undefined. Omitting transactions.'));
-
+      tx.send({ from, gas: await tx.estimateGas() });
+    }
+  };
   //TODO: Events to expose actions for.
   // Approval
   // Transfer
-
-  return erc20Obj;
 };
 
 module.exports = SimpleERC20;
