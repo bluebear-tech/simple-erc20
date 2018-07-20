@@ -63,7 +63,7 @@ var SimpleERC20 = function SimpleERC20(address) {
     });
   };
 
-  return erc20Obj = {
+  return {
     contract: contract,
     name: function name() {
       return methods.name().call();

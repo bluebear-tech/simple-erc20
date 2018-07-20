@@ -52,7 +52,7 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
   const getCoinbase = async () => w3.eth.getCoinbase().catch(() => console.error('SimpleERC20: web3 coinbase is undefined. Omitting transactions.'));
 
 
-  return erc20Obj = {
+  return {
     contract,
     name: () => methods.name().call(),
     symbol: () => methods.symbol().call(),
