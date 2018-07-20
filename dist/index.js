@@ -57,7 +57,13 @@ var SimpleERC20 = function SimpleERC20(address) {
     }
   });
 
-  var erc20Obj = {
+  var getCoinbase = async function getCoinbase() {
+    return w3.eth.getCoinbase().catch(function () {
+      return console.error('SimpleERC20: web3 coinbase is undefined. Omitting transactions.');
+    });
+  };
+
+  return erc20Obj = {
     contract: contract,
     name: function name() {
       return methods.name().call();
@@ -76,32 +82,32 @@ var SimpleERC20 = function SimpleERC20(address) {
     },
     allowance: function allowance(owner, spender) {
       return methods.allowance(owner, spender).call();
+    },
+    approve: async function approve(spender, value) {
+      var from = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      if (from === null) from = await getCoinbase();
+      var tx = methods.approve(spender, value);
+      tx.send({ from: from, gas: await tx.estimateGas() });
+    },
+    transferFrom: async function transferFrom(fromAddress, to, value) {
+      var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      if (from === null) from = await getCoinbase();
+      var tx = methods.transferFrom(fromAddress, to, value);
+      tx.send({ from: from, gas: await tx.estimateGas() });
+    },
+    transfer: async function transfer(to, value) {
+      var from = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      if (from === null) from = await getCoinbase();
+      var tx = methods.transfer(to, value);
+      tx.send({ from: from, gas: await tx.estimateGas() });
     }
   };
-
-  w3.eth.getCoinbase().then(function (coinbase) {
-    //TODO: review the timing possiblities with this.
-    erc20Obj.approve = async function (spender, value) {
-      var tx = methods.approve(spender, value);
-      tx.send({ from: coinbase, gas: await tx.estimateGas() });
-    };
-    erc20Obj.transferFrom = async function (from, to, value) {
-      var tx = methods.transferFrom(from, to, value);
-      tx.send({ from: coinbase, gas: await tx.estimateGas() });
-    };
-    erc20Obj.transfer = async function (to, value) {
-      var tx = methods.transfer(to, value);
-      tx.send({ from: coinbase, gas: await tx.estimateGas() });
-    };
-  }).catch(function () {
-    return console.warn('SimpleERC20: web3 coinbase is undefined. Omitting transactions.');
-  });
-
   //TODO: Events to expose actions for.
   // Approval
   // Transfer
-
-  return erc20Obj;
 };
 
 module.exports = SimpleERC20;
