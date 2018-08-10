@@ -88,21 +88,21 @@ var SimpleERC20 = function SimpleERC20(address) {
 
       if (from === null) from = await getCoinbase();
       var tx = methods.approve(spender, value);
-      tx.send({ from: from, gas: await tx.estimateGas() });
+      tx.send({ from: from, gas: await tx.estimateGas({ from: from }) });
     },
     transferFrom: async function transferFrom(fromAddress, to, value) {
       var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
       if (from === null) from = await getCoinbase();
       var tx = methods.transferFrom(fromAddress, to, value);
-      tx.send({ from: from, gas: await tx.estimateGas() });
+      tx.send({ from: from, gas: await tx.estimateGas({ from: from }) });
     },
     transfer: async function transfer(to, value) {
       var from = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
       if (from === null) from = await getCoinbase();
       var tx = methods.transfer(to, value);
-      tx.send({ from: from, gas: await tx.estimateGas() });
+      tx.send({ from: from, gas: await tx.estimateGas({ from: from }) });
     }
   };
   //TODO: Events to expose actions for.
