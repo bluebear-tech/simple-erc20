@@ -63,17 +63,17 @@ const SimpleERC20 = (address, network = 1, web3Param = null) => {
     approve: async (spender, value, from = null) => {
       if (from === null) from = await getCoinbase();
       const tx = methods.approve(spender, value);
-      tx.send({from, gas: await tx.estimateGas()});
+      tx.send({from, gas: await tx.estimateGas({ from })});
     },
     transferFrom: async (fromAddress, to, value, from = null) => {
       if (from === null) from = await getCoinbase();
       const tx = methods.transferFrom(fromAddress, to, value);
-      tx.send({from, gas: await tx.estimateGas()});
+      tx.send({from, gas: await tx.estimateGas({ from })});
     },
     transfer: async (to, value, from = null) => {
       if (from === null) from = await getCoinbase();
       const tx = methods.transfer(to, value);
-      tx.send({from, gas: await tx.estimateGas()});
+      tx.send({from, gas: await tx.estimateGas({ from })});
     }
   };
   //TODO: Events to expose actions for.
